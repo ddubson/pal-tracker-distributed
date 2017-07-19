@@ -1,0 +1,7 @@
+server:
+  port: 8999
+spring:
+  application:
+    name: oauth-server
+  main:
+    banner-mode: "off"
