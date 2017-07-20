@@ -1,0 +1,13 @@
+server:
+  port: 9411
+spring:
+  application:
+    name: zipkin-server
+  main:
+    banner-mode: "off"
+security:
+  basic:
+    enabled: false
+logging:
+  level:
+    root: WARN

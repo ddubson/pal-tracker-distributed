@@ -13,17 +13,26 @@ buildscript {
     }
 
     repositories {
+        maven { url "http://platform-acceleration-lab-maven.s3.amazonaws.com" }
         mavenCentral()
         jcenter()
     }
 
     dependencies {
+        classpath "io.pivotal.pal.assignments:assignments-plugin:+"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
         classpath "mysql:mysql-connector-java:$mysqlVersion"
     }
 }
 
 apply plugin: DependenciesGraphPlugin
+apply plugin: "io.pivotal.pal.assignments.plugin"
+
+assignments {
+    apiUrl = "$System.env.CADDY_API"
+    email = "$System.env.CADDY_USERNAME"
+    cohortIdentifier = "$System.env.CADDY_COHORT"
+}
 
 subprojects {
     group "io.pivotal.pal.tracker"
@@ -49,7 +58,7 @@ subprojects {
 
     test {
         environment([
-                "LOGGING_LEVEL_ROOT": "WARN",
+                "LOGGING_LEVEL_ROOT": "ERROR",
                 "SPRING_MAIN_BANNER_MODE": "off",
                 "APPLICATION_OAUTH_ENABLED": "false"
         ])
